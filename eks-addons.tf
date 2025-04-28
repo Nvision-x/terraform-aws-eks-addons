@@ -2,8 +2,12 @@ module "cluster_autoscaler_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.55.0"
 
-  role_name                        = var.autoscaler_role_name
-  attach_cluster_autoscaler_policy = true
+  role_name = var.autoscaler_role_name
+
+  # Attach AutoScalingFullAccess Policy
+  role_policy_arns = {
+    autoscaling = "arn:aws:iam::aws:policy/AutoScalingFullAccess"
+  }
 
   oidc_providers = {
     eks = {
