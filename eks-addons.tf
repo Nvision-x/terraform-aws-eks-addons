@@ -1,6 +1,6 @@
 module "cluster_autoscaler_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.3.1"
+  version = "5.55.0"
 
   role_name                        = var.autoscaler_role_name
   attach_cluster_autoscaler_policy = true
@@ -11,6 +11,7 @@ module "cluster_autoscaler_irsa_role" {
       namespace_service_accounts = ["${var.namespace}:${var.autoscaler_service_account}"]
     }
   }
+
 }
 
 resource "kubectl_manifest" "service_account" {
